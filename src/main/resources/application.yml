@@ -4,9 +4,7 @@ spring:
 
 kafka:
   group-id: photo-service-group
-  concurencyCount: 3
   topic:
     photoUpload: photo-upload
-    photoStored: photo-stored
   address: ${KAFKA_HOST:192.168.1.2}:${KAFKA_PORT:9092}
 

@@ -20,6 +20,5 @@ public class KafkaProperties {
     @Setter
     public static class Topic {
         private String photoUpload;
-        private String photoStored;
     }
 }

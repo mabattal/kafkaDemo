@@ -20,10 +20,6 @@ public class StorageService {
 
     public String saveFile(MultipartFile file) {
         try {
-            if (file.isEmpty()) {
-                throw new RuntimeException("Yüklenen dosya boş");
-            }
-
             String folderPath = "uploads";
             File uploadDir = new File(folderPath);
             if (!uploadDir.exists()) {

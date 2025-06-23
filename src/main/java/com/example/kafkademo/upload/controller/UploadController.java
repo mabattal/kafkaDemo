@@ -26,7 +26,11 @@ public class UploadController {
 
     @PostMapping
     public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
-        // 1. Storage Service'e REST ile gönder
+
+        if (file == null || file.isEmpty()) {
+            throw new IllegalArgumentException("Yüklenen dosya boş olamaz.");
+        }
+
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
 
