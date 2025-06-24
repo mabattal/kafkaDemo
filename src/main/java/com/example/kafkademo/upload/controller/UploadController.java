@@ -25,10 +25,16 @@ public class UploadController {
     private final RestTemplate restTemplate;
 
     @PostMapping
-    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
+    public ResponseEntity<String> uploadFile(
+            @RequestParam("file") MultipartFile file,
+            @RequestParam("userId") Long userId) throws IOException {
 
         if (file == null || file.isEmpty()) {
             throw new IllegalArgumentException("Yüklenen dosya boş olamaz.");
+        }
+
+        if (userId == null || userId <= 0) {
+            throw new IllegalArgumentException("Geçersiz kullanıcı ID.");
         }
 
         HttpHeaders headers = new HttpHeaders();
@@ -36,6 +42,7 @@ public class UploadController {
 
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
         body.add("file", new MultipartInputStreamFileResource(file.getInputStream(), file.getOriginalFilename()));
+        body.add("userId", userId.toString());
 
         HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
 
@@ -45,6 +52,6 @@ public class UploadController {
                 String.class
         );
 
-        return ResponseEntity.ok("Dosya storage servise gönderildi. Cevap: " + response.getBody());
+        return ResponseEntity.ok(response.getBody());
     }
 }

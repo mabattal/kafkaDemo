@@ -1,5 +1,6 @@
 package com.example.kafkademo.storage.service;
 
+import com.example.kafkademo.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,8 +18,12 @@ import java.util.UUID;
 public class StorageService {
 
     private final PhotoProducerService photoProducerService;
+    private final UserService userService;
 
-    public String saveFile(MultipartFile file) {
+    public void saveFile(Long userId, MultipartFile file) {
+
+        userService.existUser(userId);
+
         try {
             String folderPath = "uploads";
             File uploadDir = new File(folderPath);
@@ -35,9 +40,7 @@ public class StorageService {
             Path destinationPath = Paths.get(filePath);
             Files.copy(file.getInputStream(), destinationPath, StandardCopyOption.REPLACE_EXISTING);
 
-            photoProducerService.sendPhotoUploadMessage(filePath);
-
-            return filePath;
+            photoProducerService.sendPhotoUploadMessage(userId, filePath);
         } catch (IOException e) {
             throw new RuntimeException("Dosya kaydedilemedi: " + e.getMessage(), e);
         }

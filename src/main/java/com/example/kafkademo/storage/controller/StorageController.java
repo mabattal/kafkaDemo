@@ -17,8 +17,11 @@ public class StorageController {
     private final StorageService storageService;
 
     @PostMapping
-    public ResponseEntity<String> store(@RequestParam("file") MultipartFile file) {
-        String savedPath = storageService.saveFile(file);
-        return ResponseEntity.ok(savedPath); // sadece test için dönüyoruz
+    public ResponseEntity<String> store(
+            @RequestParam("file") MultipartFile file,
+            @RequestParam("userId") Long userId) {
+
+        storageService.saveFile(userId, file);
+        return ResponseEntity.ok( "Dosya başarıyla yüklendi: " + file.getOriginalFilename());
     }
 }
