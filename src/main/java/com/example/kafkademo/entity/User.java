@@ -1,4 +1,4 @@
-package com.example.kafkademo.user;
+package com.example.kafkademo.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

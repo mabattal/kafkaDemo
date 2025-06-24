@@ -1,4 +1,4 @@
-package com.example.kafkademo.storage.configuration.properties.kafka;
+package com.example.kafkademo.properties.kafka;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,10 +11,8 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "kafka")
 public class KafkaProperties {
 
-    private String address;
     private Topic topic;
     private String groupId;
-    private Integer concurrencyCount;
 
     @Getter
     @Setter

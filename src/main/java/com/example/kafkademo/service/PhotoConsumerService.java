@@ -1,8 +1,6 @@
-package com.example.kafkademo.upload.service;
+package com.example.kafkademo.service;
 
-import com.example.kafkademo.storage.configuration.properties.kafka.KafkaProperties;
-import com.example.kafkademo.user.PhotoMessageDto;
-import com.example.kafkademo.user.UserService;
+import com.example.kafkademo.model.PhotoMessageDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +12,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class PhotoConsumerService {
 
-    private final KafkaProperties kafkaProperties;
     private final UserService userService;
 
     @KafkaListener(topics = "#{@kafkaProperties.topic.photoUpload}", groupId = "#{@kafkaProperties.groupId}")

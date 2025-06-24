@@ -18,9 +18,10 @@ spring:
         format_sql: true
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
+server:
+  port: 8080
+
 kafka:
   group-id: photo-service-group
   topic:
     photoUpload: photo-upload
-  address: ${KAFKA_HOST:192.168.1.2}:${KAFKA_PORT:9092}
-

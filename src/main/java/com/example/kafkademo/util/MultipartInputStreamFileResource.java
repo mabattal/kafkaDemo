@@ -1,4 +1,4 @@
-package com.example.kafkademo.upload.util;
+package com.example.kafkademo.util;
 
 import org.springframework.core.io.InputStreamResource;
 

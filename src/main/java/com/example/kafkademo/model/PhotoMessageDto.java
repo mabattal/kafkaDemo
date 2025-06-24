@@ -1,4 +1,4 @@
-package com.example.kafkademo.user;
+package com.example.kafkademo.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
