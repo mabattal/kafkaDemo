@@ -22,6 +22,20 @@ server:
   port: 8080
 
 kafka:
-  group-id: photo-service-group
+  address: ${KAFKA_HOST:192.168.1.7}:${KAFKA_PORT:9092}
+
   topic:
-    photoUpload: photo-upload
+    photo-upload: photo-upload
+    photo-upload-dlt: photo-upload.DLT
+
+  consumer:
+    group-id: photo-service-group
+    dlt-group-id: photo-dlt-consumer
+    enable-auto-commit: false
+    auto-offset-reset: earliest
+    properties:
+      max.poll.records: 5
+    concurrency: 1
+
+  listener:
+    ack-mode: manual

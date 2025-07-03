@@ -4,6 +4,7 @@ import com.example.kafkademo.entity.User;
 import com.example.kafkademo.repository.UserRepository;
 import com.example.kafkademo.util.MultipartInputStreamFileResource;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -17,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -24,11 +26,22 @@ public class UserService {
     private final UserRepository userRepository;
     private final RestTemplate restTemplate;
 
-    public void updateProfileImage(Long userId, String imagePath) {
-        Optional<User> optionalUser = userRepository.findById(userId);
-        optionalUser.ifPresent(user -> {
-            user.setProfileImage(imagePath);
+    public boolean updateProfileImage(Long userId, String photoPath) {
+        return userRepository.findById(userId).map(user -> {
+
+            // idempotent kontrol: aynı path zaten kayıtlıysa işlem yapma
+            if (photoPath.equals(user.getProfileImage())) {
+                log.info("Profil fotoğrafı zaten aynı. Güncellenmedi.");
+                return false;
+            }
+
+            user.setProfileImage(photoPath);
             userRepository.save(user);
+            log.info("User {} profil fotoğrafı {} olarak güncellendi", userId, photoPath);
+            return true;
+        }).orElseGet(() -> {
+            log.warn("User {} bulunamadı, güncelleme yapılmadı", userId);
+            return false;
         });
     }
 
