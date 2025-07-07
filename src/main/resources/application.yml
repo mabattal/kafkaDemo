@@ -22,7 +22,7 @@ server:
   port: 8080
 
 kafka:
-  address: ${KAFKA_HOST:192.168.1.7}:${KAFKA_PORT:9092}
+  address: ${KAFKA_HOST:localhost}:${KAFKA_PORT:9092}
 
   topic:
     photo-upload: photo-upload
