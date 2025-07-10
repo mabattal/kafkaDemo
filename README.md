@@ -1,6 +1,6 @@
 # KafkaDemo
 
-Bu proje, Spring Boot ve Apache Kafka kullanarak mikroservisler arası iletişim örneği olarak geliştirilmiştir. Projede, `upload-service` ve `storage-service` olmak üzere iki farklı yapı tek bir Spring Boot uygulaması içerisinde modüler olarak ayrılmıştır.
+Bu proje, Spring Boot ve Apache Kafka kullanarak mikroservisler arası iletişim örneği olarak geliştirilmiştir. Projede, `KafkaDemo` ve `StorageApp` olmak üzere iki farklı yapı tek bir Spring Boot uygulaması içerisinde modüler olarak ayrılmıştır.
 
 İlişkili repo:
 - [StorageApp](https://github.com/mabattal/storageApp)
@@ -11,6 +11,7 @@ Bu proje, Spring Boot ve Apache Kafka kullanarak mikroservisler arası iletişim
 - Spring Boot
 - Spring Web
 - Spring Kafka
+- Spring Data JPA
 - Apache Kafka
 - PostgreSQL
 - Lombok
@@ -18,14 +19,14 @@ Bu proje, Spring Boot ve Apache Kafka kullanarak mikroservisler arası iletişim
 
 ## 🧩 Modüller
 
-### 1. Upload Service
+### 1. KafkaDemo
 - REST API ile kullanıcıdan fotoğraf alır.
-- Fotoğraf verisini Kafka REST API ile Storage Servise gönderir.
+- Fotoğraf verisini REST API ile StorageApp'e gönderir.
 - Kafka'dan okuduğu dosya yolu bilgisini veritabanına kaydeder.
 - Kafka consumer olarak çalışır.
 
-### 2. Storage Service
-- Upload Servisten gelen fotoğraf verisini işler ve dosya sistemine kaydeder.
+### 2. StorageApp
+- KafkaDemo'dan gelen fotoğraf verisini işler ve dosya sistemine kaydeder.
 - Dosya yolu bilgisini kafka'ya gönderir.
 - Kafka producer olarak çalışır.
 
